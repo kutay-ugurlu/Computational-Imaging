@@ -1,5 +1,6 @@
 %% Q1
 % The proposed method created a narrower main lobe in the frequency domain.
+% Hence the suggestion is sound. 
 close all; clear; clc;
 s = 512; ks = 40;
 A = zeros(s,s);
@@ -19,7 +20,7 @@ surf(fft_X,fft_Y,fft_mag,fft_mag,'EdgeColor','interp'), colormap jet
 c = colorbar(h,'Position',[0.93 0.11 0.01 0.7]); 
 sgtitle('Rectangular Area Fourier Transform')
 figure
-plot(fft_mag(s/2,:))
+plot(fft_mag(s/2,(s/2-50):(s/2+50)))
 title('Center section of Fourier Transform')
 A = zeros(s,s);
 A(0.5*s-5*ks:0.5*s+5*ks,0.5*s-ks:0.5*s+ks) = 1;
@@ -39,7 +40,7 @@ surf(fft_X,fft_Y,fft_mag,fft_mag,'EdgeColor','interp'), colormap jet
 c = colorbar(h,'Position',[0.93 0.11 0.01 0.7]); 
 sgtitle('Cross shaped area and truncated Fourier Transform')
 figure
-plot(fft_mag(s/2,:))
+plot(fft_mag(s/2,(s/2-50):(s/2+50)))
 title('Center section of Fourier Transform')
 
 %% Chinese Hat 
