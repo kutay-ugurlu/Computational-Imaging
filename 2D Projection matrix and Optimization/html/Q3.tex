@@ -22,8 +22,7 @@
    \item Part a
    \item Part b
    \item Part c: Inverse Filtering in Frequency domain
-   \item Part d: LS Filtering
-   \item Part e
+   \item Part d
    \item Find threshold for noisy reconstruction
 \end{itemize}
 
@@ -86,7 +85,8 @@ end
 \subsection*{Part c: Inverse Filtering in Frequency domain}
 
 \begin{verbatim}
-figure
+f = figure;
+f.Position = [100 100 900 450];
 size_Y = size(Y_blurred);
 X_inv = ifft2(fft2(Y_blurred,size_Y(1), ...
     size_Y(2))./fft2(F,size_Y(1),size_Y(2)),size_Y(1),size_Y(2));
@@ -98,15 +98,9 @@ title('Inverse Filtering of y')
 subplot(1,2,2)
 imagesc(X_inv_noisy)
 title('Inverse Filtering of y_{noise}')
-\end{verbatim}
 
-\includegraphics [width=4in]{Q3_04.eps}
-
-
-\subsection*{Part d: LS Filtering}
-
-\begin{verbatim}
-figure
+f = figure;
+f.Position = [100 100 900 450];
 C = full(C); % The LS solution outputs wrong results if C remains sparse!
 X_inv = reshape(inv(C'*C)*C'*y,size(X));
 X_inv_noisy = reshape(inv(C'*C)*C'*y_n,size(X));
@@ -118,10 +112,12 @@ imagesc(X_inv_noisy)
 title('Least Squares Filtering of y_{noise}')
 \end{verbatim}
 
+\includegraphics [width=4in]{Q3_04.eps}
+
 \includegraphics [width=4in]{Q3_05.eps}
 
 
-\subsection*{Part e}
+\subsection*{Part d}
 
 \begin{par}
 y = U S VH x; x = V 1/S UH y;
@@ -139,7 +135,8 @@ for i = 1:length(singular_values)
     Errors(i) = relative_error(X_vec, X_back_vec);
 end
 X_back = reshape(X_back_vec,size(X));
-figure
+f = figure;
+f.Position = [100 100 900 300];
 colormap gray
 subplot(1,3,1)
 imagesc(X)
@@ -165,7 +162,8 @@ for i = 1:length(singular_values)
 end
 Full_Errors = Errors;
 X_back = reshape(X_back_vec,size(X));
-figure
+f = figure;
+f.Position = [100 100 900 300];
 colormap gray
 subplot(1,3,1)
 imagesc(X)
