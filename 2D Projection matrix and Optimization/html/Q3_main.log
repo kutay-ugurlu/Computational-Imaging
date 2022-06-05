@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.2.6)  5 JUN 2022 16:59
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.2.6)  5 JUN 2022 17:28
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -301,17 +301,17 @@ File: Q3_07.eps Graphic file (type eps)
  [6]
 File: Q3_08.eps Graphic file (type eps)
 <Q3_08.eps>
- [7] [8] (Q3_main.aux)
+ [7] [8] [9] (Q3_main.aux)
 Package rerunfilecheck Info: File `Q3_main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 7996 strings out of 410978
- 125793 string characters out of 2824014
- 428678 words of memory out of 3000000
- 28659 multiletter control sequences out of 15000+600000
- 469667 words of font info for 35 fonts, out of 8000000 for 9000
+ 8001 strings out of 410978
+ 125912 string characters out of 2824014
+ 428712 words of memory out of 3000000
+ 28662 multiletter control sequences out of 15000+600000
+ 469683 words of font info for 37 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  60i,11n,64p,512b,465s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Q3_main.pdf (8 pages).
+Output written on Q3_main.pdf (9 pages).

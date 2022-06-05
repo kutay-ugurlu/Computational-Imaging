@@ -258,7 +258,18 @@ sgtitle('TSVD Reconstructions for noisy image')
 \subsubsection*{Comments}
 Experiments showed that applying a threshold around the 1\% of the maximum singular value resulted in moderate success when compared to the other reconstruction thresholds. The corresponding singular value index is found to be 433. This can also be seen in the error plot given in the top of the above figure, where error gets drastically higher after the inclusion of 500 singular values. 
 
+\pagebreak
 
+\section*{Conjugate Gradient}
 
+\subsubsection*{Comments}
+
+As stated, the main intensive task in the Conjugate gradient method is the repetitive forward operators. Tikhonov regularized solution can be found by assigning $A=(C^TC+{\lambda}D^TD)$. However, this may not be useful in memory-limited systems. Hence forward projections of A should be replaced with another operation requiring less memory. This can be done as follows:
+\begin{eqnarray}
+    Az &= (C^TC+{\lambda}D^TD)z \\ 
+    &= C^T(Cz)+ {\lambda}D^T(Dz) \label{eqn:fastforward}
+\end{eqnarray}
+
+The quantities $Cz$ and $C^Tz$ in Eqn.~\ref{eqn:fastforward} can be computed using fast-forward routines, keeping in mind that the operator $C$ represents convolution operation, hence it can be computed via FFTs. Hence, one only needs to store the discrete derivative operator and reduces memory requirements drastically. 
 \end{document}
 
