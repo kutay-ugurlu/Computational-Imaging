@@ -1,11 +1,46 @@
-%% Setup
+
+% This LaTeX was auto-generated from MATLAB code.
+% To make changes, update the MATLAB code and republish this document.
+
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{color}
+
+\sloppy
+\definecolor{lightgray}{gray}{0.5}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+    
+    
+\subsection*{Contents}
+
+\begin{itemize}
+\setlength{\itemsep}{-1ex}
+   \item Setup
+   \item Part a
+   \item Part b
+   \item Part c: Inverse Filtering in Frequency domain
+   \item Part d: LS Filtering
+   \item Part e
+   \item Find threshold for noisy reconstruction
+\end{itemize}
+
+
+\subsection*{Setup}
+
+\begin{verbatim}
 close all;
 clc;
+\end{verbatim}
 
-%% Part a
 
-I = imread('cameraman.tif'); 
-X = im2double(I); 
+\subsection*{Part a}
+
+\begin{verbatim}
+I = imread('cameraman.tif');
+X = im2double(I);
 X = X(50:80,105:138);
 F = gauss2d(9,9,0,0,2,2);
 figure
@@ -14,16 +49,25 @@ title('Gaussian Filter')
 C = convmtx2(F,size(X,1),size(X,2));
 X_vec = X(:);
 y = C*X_vec;
-figure
-subplot(2,2,1)
+f1 = figure;
+ax = gca;
+subplot(2,2,1,ax)
 imagesc(X), colormap gray
 title('Original Phantom')
 subplot(2,2,2)
 Y_blurred = reshape(y,size(F)+size(X)-1);
 imagesc(Y_blurred)
 title('Blurred Phantom')
+\end{verbatim}
 
-%% Part b
+\includegraphics [width=4in]{Q3_01.eps}
+
+\includegraphics [width=4in]{Q3_02.eps}
+
+
+\subsection*{Part b}
+
+\begin{verbatim}
 for ratio = [3 4]
     variance = var(y)/10^ratio; % SNR adjustment
     sigma_n = sqrt(variance);
@@ -34,21 +78,34 @@ for ratio = [3 4]
     imagesc(y_img)
     title(['Blurred Phantom with SNR: ',num2str(10*ratio)])
 end
+\end{verbatim}
 
-%% Part c: Inverse Filtering in Frequency domain 
+\includegraphics [width=4in]{Q3_03.eps}
+
+
+\subsection*{Part c: Inverse Filtering in Frequency domain}
+
+\begin{verbatim}
 figure
 size_Y = size(Y_blurred);
-X_inv = ifft2(fft2(Y_blurred,size_Y(1),size_Y(2))./fft2(F,size_Y(1),size_Y(2)),size_Y(1),size_Y(2));
-X_inv_noisy = ifft2(fft2(y_img)./fft2(F,size_Y(1),size_Y(2)),size_Y(1),size_Y(2));
+X_inv = ifft2(fft2(Y_blurred,size_Y(1), ...
+    size_Y(2))./fft2(F,size_Y(1),size_Y(2)),size_Y(1),size_Y(2));
+X_inv_noisy = ifft2(fft2(y_img)./fft2(F, ...
+    size_Y(1),size_Y(2)),size_Y(1),size_Y(2));
 subplot(1,2,1)
 imagesc(X_inv), colormap gray
 title('Inverse Filtering of y')
 subplot(1,2,2)
 imagesc(X_inv_noisy)
 title('Inverse Filtering of y_{noise}')
+\end{verbatim}
+
+\includegraphics [width=4in]{Q3_04.eps}
 
 
-%% Part d: LS Filtering
+\subsection*{Part d: LS Filtering}
+
+\begin{verbatim}
 figure
 C = full(C); % The LS solution outputs wrong results if C remains sparse!
 X_inv = reshape(inv(C'*C)*C'*y,size(X));
@@ -59,11 +116,17 @@ title('Least Squares Filtering of y')
 subplot(1,2,2)
 imagesc(X_inv_noisy)
 title('Least Squares Filtering of y_{noise}')
+\end{verbatim}
 
-%% Part e 
-% y = U S VH x;
-% x = V 1/S UH y;
+\includegraphics [width=4in]{Q3_05.eps}
 
+
+\subsection*{Part e}
+
+\begin{par}
+y = U S VH x; x = V 1/S UH y;
+\end{par} \vspace{1em}
+\begin{verbatim}
 [U,S,V] = svd(C);
 singular_values = diag(S);
 X_back_vec = zeros(size(X_vec));
@@ -114,17 +177,27 @@ subplot(1,3,3)
 plot(Errors)
 title('Errors')
 sgtitle('TSVD Reconstructions for noisy image')
+\end{verbatim}
 
-%% Find threshold for noisy reconstruction 
+\includegraphics [width=4in]{Q3_06.eps}
 
+\includegraphics [width=4in]{Q3_07.eps}
+
+
+\subsection*{Find threshold for noisy reconstruction}
+
+\begin{par}
+A ratio of $\frac{1}{200}$ in singular value amplitude provided a satisfactory amount of reconstruction.
+\end{par} \vspace{1em}
+\begin{verbatim}
 f = figure; colormap gray;
 f.Position = [100 100 600 800];
-plot_idx = 1;
-for ratio = 50:50:1000
+plot_idx = 4;
+for ratio = 100:100:900
     max_sing_value = max(singular_values);
     threshold = max_sing_value / ratio;
     [minimum, index] = min(abs(singular_values-threshold));
-      
+
     X_back_vec = zeros(size(X_vec));
     Errors = zeros(index,1);
     for i = 1:index
@@ -137,7 +210,8 @@ for ratio = 50:50:1000
     X_back = reshape(X_back_vec,size(X));
     subplot(4,3,plot_idx)
     imagesc(X_back)
-    title({['Ratio:',num2str(ratio)],['Min Eigenvalue index: ',num2str(index)]})
+    title({['Ratio:',num2str(ratio)] ...
+        ,['Min Eigenvalue index: ',num2str(index)]})
     plot_idx = plot_idx + 1;
 end
 
@@ -147,10 +221,20 @@ imagesc(X)
 title('Original Image')
 
 subplot(4,3,2)
-plot(Full_Errors(1:250))
+plot(100:900,Full_Errors(100:900))
 title('Errors')
+xlabel('Singular Value Iteration')
+ylabel('Relative Error')
 
 subplot(4,3,3)
 plot(singular_values)
-title('Singular Value distribution')
+title('Sorted Singular Value distribution')
 sgtitle('TSVD Reconstructions for noisy image')
+\end{verbatim}
+
+\includegraphics [width=4in]{Q3_08.eps}
+
+
+
+\end{document}
+
