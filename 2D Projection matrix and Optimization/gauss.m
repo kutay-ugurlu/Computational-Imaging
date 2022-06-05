@@ -1,0 +1,3 @@
+function y = gauss( x, mu, sigma_2 )
+y = ( 1 / sqrt( 2 * pi * sigma_2 ) ) * ...
+    exp( -( x - mu ).^2 / 2 / sigma_2 );
