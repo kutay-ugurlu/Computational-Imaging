@@ -262,6 +262,9 @@ Experiments showed that applying a threshold around the 1\% of the maximum singu
 
 \section*{Conjugate Gradient}
 
+\subsection{a}
+
+\subsection{b}
 \subsubsection*{Comments}
 
 As stated, the main intensive task in the Conjugate gradient method is the repetitive forward operators. Tikhonov regularized solution can be found by assigning $A=(C^TC+{\lambda}D^TD)$. However, this may not be useful in memory-limited systems. Hence forward projections of A should be replaced with another operation requiring less memory. This can be done as follows:
@@ -269,7 +272,7 @@ As stated, the main intensive task in the Conjugate gradient method is the repet
     Az &= (C^TC+{\lambda}D^TD)z \\ 
     &= C^T(Cz)+ {\lambda}D^T(Dz) \label{eqn:fastforward}
 \end{eqnarray}
-
-The quantities $Cz$ and $C^Tz$ in Eqn.~\ref{eqn:fastforward} can be computed using fast-forward routines, keeping in mind that the operator $C$ represents convolution operation, hence it can be computed via FFTs. Hence, one only needs to store the discrete derivative operator and reduces memory requirements drastically. 
+This type of formulation allows us to replace $Az$ with forward operators $Cz,\ C^Tz,\ Dz$ and $D^Tz$ for some arbitrary vector z. 
+For some particular C and D, the quantities $Cz$ and $C^Tz$ in Eqn.~\ref{eqn:fastforward} can be computed using fast-forward routines, keeping in mind that the operator $C$ represents convolution operation, hence it can be computed via FFTs. Hence, one only needs to store the discrete derivative operator and using the seperability feature of the 2D discrete derivative operator, reduces memory requirements drastically. 
 \end{document}
 
