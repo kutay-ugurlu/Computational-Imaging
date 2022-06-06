@@ -1,0 +1,26 @@
+%% Q4 c
+addpath("autoArrangeFigures");
+% <include>forward_A.m</include>
+% <include>cgconvtik.m</include>
+%
+close all; clc; clear;
+X = double(imread('cameraman.tif'));
+H = gauss2d(15,15,0,0,2,2);
+D1 = [-1 0 1]'*5;
+D2 = D1';
+
+Y = conv2(X,H,'same');
+sigma_s = var(Y(:));
+sigma_n = sigma_s * 1e-3; 
+noise = sigma_n * randn(size(Y));
+Y = Y + noise;
+n_iter = 500;
+x_0 = X;
+for lambda = power(linspace(-2,log10(20),20))
+    estimate = cgconvtik(H, D1, D2, Y, x_0, lambda, n_iter);
+    figure
+    X_back = reshape(estimate,size(X));
+    imagesc(normalize(X_back,'range')), colormap gray
+    title({['\lambda = ',num2str(lambda)], ['N_{iter} = ',num2str(n_iter)]})
+end
+autoArrangeFigures(4,5,1)

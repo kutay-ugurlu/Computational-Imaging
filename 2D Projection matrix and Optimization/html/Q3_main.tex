@@ -4,6 +4,7 @@
 
 \documentclass{article}
 \usepackage{graphicx}
+\usepackage[]{amsmath}
 \usepackage{color}
 \usepackage[colorlinks=false, hidelinks=true]{hyperref}
 
@@ -262,16 +263,29 @@ Experiments showed that applying a threshold around the 1\% of the maximum singu
 
 \section*{Conjugate Gradient}
 
-\subsection{a}
+\subsection*{a}
 
-\subsection{b}
+Assuming the vector-vector product has computational cost of N operations, the total cost of CG for N iterations and direct inversion is calculated as follows: 
+
+For one iteration of Conjugate Gradient:
+\begin{itemize}
+    \item $\alpha_k: 2N^2 + N \approx 2N^2$
+    \item $x_{k+1}: \ \ \approx 1$
+    \item $r_{k+1}: N^2$
+    \item $\beta_k: 2N$
+    \item $p_{k+1}: \ \ \approx 1$
+\end{itemize}
+
+Therefore, total cost per iteration can be approximated as $3N^2+2N$. For $N_{iter}$ iterations, the overall cost is $(3N^2+2N)N_{iter}$. On the other hand, for direct inversion, requiring the computation of $(C^TC + \lambda D^TD)^{-1}$. The computation of the forward matrix costs $2N^2$ operations. Inversion of this matrix costs approximately $N^3$ operations, resulting in an overall cost of $N^3 + 2N^2$. Assuming $N>>3$, then CG requires $3N^2N_{iter}$ and direct inversion requires $N^3$ operations. Hence, for small $N_{iter}$, CG requires less computation. 
+
+\subsection*{b}
 \subsubsection*{Comments}
 
 As stated, the main intensive task in the Conjugate gradient method is the repetitive forward operators. Tikhonov regularized solution can be found by assigning $A=(C^TC+{\lambda}D^TD)$. However, this may not be useful in memory-limited systems. Hence forward projections of A should be replaced with another operation requiring less memory. This can be done as follows:
-\begin{eqnarray}
-    Az &= (C^TC+{\lambda}D^TD)z \\ 
-    &= C^T(Cz)+ {\lambda}D^T(Dz) \label{eqn:fastforward}
-\end{eqnarray}
+\begin{align}
+    Az & = (C^TC+{\lambda}D^TD)z \\ 
+    & = C^T(Cz)+ {\lambda}D^T(Dz) \label{eqn:fastforward}
+\end{align}
 This type of formulation allows us to replace $Az$ with forward operators $Cz,\ C^Tz,\ Dz$ and $D^Tz$ for some arbitrary vector z. 
 For some particular C and D, the quantities $Cz$ and $C^Tz$ in Eqn.~\ref{eqn:fastforward} can be computed using fast-forward routines, keeping in mind that the operator $C$ represents convolution operation, hence it can be computed via FFTs. Hence, one only needs to store the discrete derivative operator and using the seperability feature of the 2D discrete derivative operator, reduces memory requirements drastically. 
 \end{document}
