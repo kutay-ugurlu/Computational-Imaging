@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.2.6)  6 JUN 2022 13:08
+This is XeTeX, Version 3.141592653-2.6-0.999993 (MiKTeX 22.1) (preloaded format=xelatex 2022.2.6)  7 JUN 2022 11:16
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -265,6 +265,31 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip52
 )
+(C:\Users\Kutay\AppData\Local\Programs\MiKTeX\tex/latex/cleveref\cleveref.sty
+Package: cleveref 2018/03/27 v0.21.4 Intelligent cross-referencing
+Package cleveref Info: `hyperref' support loaded on input line 2370.
+LaTeX Info: Redefining \cref on input line 2370.
+LaTeX Info: Redefining \Cref on input line 2370.
+LaTeX Info: Redefining \crefrange on input line 2370.
+LaTeX Info: Redefining \Crefrange on input line 2370.
+LaTeX Info: Redefining \cpageref on input line 2370.
+LaTeX Info: Redefining \Cpageref on input line 2370.
+LaTeX Info: Redefining \cpagerefrange on input line 2370.
+LaTeX Info: Redefining \Cpagerefrange on input line 2370.
+LaTeX Info: Redefining \labelcref on input line 2370.
+LaTeX Info: Redefining \labelcpageref on input line 2370.
+)
+(C:\Users\Kutay\AppData\Local\Programs\MiKTeX\tex/latex/base\fixltx2e.sty
+Package: fixltx2e 2016/12/29 v2.1a fixes to LaTeX (obsolete)
+Applying: [2015/01/01] Old fixltx2e package on input line 46.
+
+
+Package fixltx2e Warning: fixltx2e is not required with releases after 2015
+(fixltx2e)                All fixes are now in the LaTeX kernel.
+(fixltx2e)                See the latexrelease package for details.
+
+Already applied: [0000/00/00] Old fixltx2e package on input line 53.
+)
 (C:\Users\Kutay\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-xet
 ex.def
 File: l3backend-xetex.def 2022-01-12 L3 backend support: XeTeX
@@ -280,33 +305,33 @@ File: l3backend-xetex.def 2022-01-12 L3 backend support: XeTeX
 ) (Q3_main.aux)
 \openout1 = `Q3_main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 15.
-LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 1
-5.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 21.
+LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 2
+1.
 
 (C:\Users\Kutay\AppData\Local\Programs\MiKTeX\tex/latex/base\ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 15.
-LaTeX Font Info:    ... okay on input line 15.
-Package hyperref Info: Link coloring OFF on input line 15.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+Package hyperref Info: Link coloring OFF on input line 21.
 
 (C:\Users\Kutay\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -320,52 +345,118 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count286
 )
-LaTeX Info: Redefining \ref on input line 15.
-LaTeX Info: Redefining \pageref on input line 15.
-LaTeX Info: Redefining \nameref on input line 15.
+LaTeX Info: Redefining \ref on input line 21.
+LaTeX Info: Redefining \pageref on input line 21.
+LaTeX Info: Redefining \nameref on input line 21.
  (Q3_main.out) (Q3_main.out)
 \@outlinefile=\write3
 \openout3 = `Q3_main.out'.
 
 File: Q3_01.eps Graphic file (type eps)
 <Q3_01.eps>
+File: Q3_02.eps Graphic file (type eps)
+<Q3_02.eps>
  [1
 
 ]
-File: Q3_02.eps Graphic file (type eps)
-<Q3_02.eps>
 File: Q3_03.eps Graphic file (type eps)
 <Q3_03.eps>
  [2]
-Overfull \hbox (38.25pt too wide) in paragraph at lines 116--116
+Overfull \hbox (38.25pt too wide) in paragraph at lines 112--112
 []\TU/lmtt/m/n/10 C = full(C); % The LS solution outputs wrong results if C rem
 ains sparse![] 
  []
 
-[3]
 File: Q3_04.eps Graphic file (type eps)
 <Q3_04.eps>
 File: Q3_05.eps Graphic file (type eps)
 <Q3_05.eps>
- [4] [5]
+[3] [4]
 File: Q3_06.eps Graphic file (type eps)
 <Q3_06.eps>
+ [5]
 File: Q3_07.eps Graphic file (type eps)
 <Q3_07.eps>
  [6]
 File: Q3_08.eps Graphic file (type eps)
 <Q3_08.eps>
- [7] [8] [9] (Q3_main.aux)
+ [7] [8] [9] [10]
+Overfull \hbox (12.0pt too wide) in paragraph at lines 351--351
+[]    \TU/lmtt/m/n/10 function estimate = cgconvtik(H, D1, D2, Y, x_0, lambda, 
+n_iter)[] 
+ []
+
+
+Overfull \hbox (1.5pt too wide) in paragraph at lines 374--374
+[]    \TU/lmtt/m/n/10 function estimate = cgradontik(D1, D2, Y, x_0, lambda, n_
+iter)[] 
+ []
+
+[11]
+Overfull \hbox (96.0pt too wide) in paragraph at lines 405--405
+[]    \TU/lmtt/m/n/10 f1 = figure('units','normalized','outerposition',[0.0823 
+0.1111 0.7063 0.7963]);[] 
+ []
+
+
+Overfull \hbox (127.5pt too wide) in paragraph at lines 405--405
+[]        \TU/lmtt/m/n/10 title({['\lambda = ',num2str(lambda)],['Exponent of 1
+0: ',num2str(exponents(i))]})[] 
+ []
+
+
+Overfull \hbox (6.75pt too wide) in paragraph at lines 405--405
+[]    \TU/lmtt/m/n/10 sgtitle(['CG Reconstructions for N_{iter} = ',num2str(n_i
+ter)])[] 
+ []
+
+[12]
+Overfull \hbox (96.0pt too wide) in paragraph at lines 438--438
+[]    \TU/lmtt/m/n/10 f2 = figure('units','normalized','outerposition',[0.1964 
+0.2250 0.4896 0.6019]);[] 
+ []
+
+
+Overfull \hbox (127.5pt too wide) in paragraph at lines 438--438
+[]        \TU/lmtt/m/n/10 title({['\lambda = ',num2str(lambda)],['Exponent of 1
+0: ',num2str(exponents(i))]})[] 
+ []
+
+
+Overfull \hbox (6.75pt too wide) in paragraph at lines 438--438
+[]    \TU/lmtt/m/n/10 sgtitle(['CG Reconstructions for N_{iter} = ',num2str(n_i
+ter)])[] 
+ []
+
+[13]
+File: Q4_01.eps Graphic file (type eps)
+<Q4_01.eps>
+
+Overfull \hbox (16.36089pt too wide) in paragraph at lines 450--451
+ [][] 
+ []
+
+File: Q4_02.eps Graphic file (type eps)
+<Q4_02.eps>
+
+Overfull \hbox (16.34837pt too wide) in paragraph at lines 455--456
+ [][] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[14] [15] (Q3_main.aux)
 Package rerunfilecheck Info: File `Q3_main.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 8678 strings out of 410978
- 134851 string characters out of 2824014
- 441167 words of memory out of 3000000
- 29323 multiletter control sequences out of 15000+600000
+ 10356 strings out of 410978
+ 173476 string characters out of 2824014
+ 504561 words of memory out of 3000000
+ 30993 multiletter control sequences out of 15000+600000
  470137 words of font info for 39 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 60i,11n,64p,688b,470s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,15n,64p,1317b,470s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Q3_main.pdf (9 pages).
+Output written on Q3_main.pdf (15 pages).

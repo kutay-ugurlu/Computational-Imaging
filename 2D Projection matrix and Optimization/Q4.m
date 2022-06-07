@@ -46,7 +46,7 @@ n_iter = 250;
 x_0 = randn(size(X));
 i = 1;
 f2 = figure('units','normalized','outerposition',[0.1964 0.2250 0.4896 0.6019]);
-exponents = linspace(-2,2,20);
+exponents = linspace(-1,2,20);
 for lambda = power(10,exponents)
     tic
     estimate = cgradontik(D1, D2, b, x_0, lambda, n_iter);

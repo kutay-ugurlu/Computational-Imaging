@@ -7,6 +7,12 @@
 \usepackage[]{amsmath}
 \usepackage{color}
 \usepackage[colorlinks=false, hidelinks=true]{hyperref}
+\usepackage{cleveref}
+
+\usepackage{fixltx2e}
+\def\SPSB#1#2{\rlap{\textsuperscript{{#1}}}\SB{#2}}
+\def\SP#1{\textsuperscript{{#1}}}
+\def\SB#1{\textsubscript{{#1}}}
 
 \sloppy
 \definecolor{lightgray}{gray}{0.5}
@@ -16,17 +22,7 @@
 
     
     
-\subsection*{Contents}
-
-\begin{itemize}
-\setlength{\itemsep}{-1ex}
-   \item Setup
-   \item Part a
-   \item Part b
-   \item Part c: Inverse Filtering in Frequency domain
-   \item Part d
-   \item Find threshold for noisy reconstruction
-\end{itemize}
+\section*{Blurring Filter}
 
 
 \subsection*{Setup}
@@ -287,6 +283,178 @@ As stated, the main intensive task in the Conjugate gradient method is the repet
     & = C^T(Cz)+ {\lambda}D^T(Dz) \label{eqn:fastforward}
 \end{align}
 This type of formulation allows us to replace $Az$ with forward operators $Cz,\ C^Tz,\ Dz$ and $D^Tz$ for some arbitrary vector z. 
-For some particular C and D, the quantities $Cz$ and $C^Tz$ in Eqn.~\ref{eqn:fastforward} can be computed using fast-forward routines, keeping in mind that the operator $C$ represents convolution operation, hence it can be computed via FFTs. Hence, one only needs to store the discrete derivative operator and using the seperability feature of the 2D discrete derivative operator, reduces memory requirements drastically. 
+For some particular C and D, the quantities $Cz$ and $C^Tz$ in Eqn.~\ref{eqn:fastforward} can be computed using fast-forward routines, without forming the huge matrices that operate on flattened vector representations of the images. Keeping in mind that the operator $C$ represents convolution operation, hence it can be computed via FFTs. $C^T$ is the adjoint operator of convolution and corresponds to the convolution of input with flipped or inverted filter $H(-x,-y)$. In the case of matrix C representing Radon transform, the quantities $Cz$ and $C^Tz$ can be computed by utilizing the fast-forward routines \texttt{radon.m} and \texttt{iradon.m} in MATLAB. This result is already derived in Homework 2. Similarly, discrete derivative operation can be computed by convolving the image with the first order derivative kernels, without the need of calculation the matrices $R_1$ and $R_2$. Hence, one only needs to store the discrete derivative operator and using the separability feature of the 2D discrete derivative operator, reduces memory requirements drastically. The derivative  operator $D$ is operated on the input vector x using the given stacked decomposition as follows:
+
+\begin{align}
+    Dx &=  \begin{bmatrix} R_{1}x & R_{2}x \end{bmatrix} \\
+    D^Tz &= \begin{bmatrix} {R_{1}}^T  {R_{2}}^T \end{bmatrix} \begin{bmatrix} {z_{1}}\\  {z_{2}} \end{bmatrix} = {R_1}^Tz_1 + {R_2}^Tz_2 \\ 
+    D^TDx &= {R_1}^TR_1x + {R_2}^TR_2x 
+\end{align}
+
+where ${R_N}^z$ corresponds to convolution with first order derivative kernel in dimension N and ${R_N}^Tz$ is convolution with flipped derivative kernel. Using these fast-forward operations, the following scripts are written to perform Tikhonov regularization via Conjugate Gradient. 
+
+\subsection*{Forward Convolution A}
+
+\begin{verbatim}
+    function res = forward_A(H,lambda,D1,D2,p)
+    H_flipped = flip(flip(H,1),2);
+    D1_flipped = flip(D1);
+    D2_flipped = flip(D2);
+    Cp = conv2(p,H,'same');
+    CtranposeCp = conv2(Cp,H_flipped,'same');
+    R1 = conv2(conv2(p,D1,'same'),D1_flipped,'same');
+    R2 = conv2(conv2(p,D2,'same'),D2_flipped,'same');
+    res = CtranposeCp + lambda*(R1+R2);
+    res = res(:);
+    end
+    \end{verbatim}
+
+\subsection*{Forward Radon A}
+
+\begin{verbatim}
+    function res = forward_radon(lambda,D1,D2,p)
+    D1_flipped = flip(D1);
+    D2_flipped = flip(D2);
+    theta_step = 180/size(p,1);
+    thetas = 0:theta_step:180-theta_step;
+    Cp = radon(p,thetas);
+    CtranposeCp = iradon(Cp,thetas);
+    CtranposeCp = CtranposeCp(2:end-1,2:end-1);
+    R1 = conv2(conv2(p,D1,'same'),D1_flipped,'same');
+    R2 = conv2(conv2(p,D2,'same'),D2_flipped,'same');
+    res = CtranposeCp + lambda*(R1+R2);
+    res = res(:);
+    end
+    \end{verbatim}
+
+\subsection*{CG Convolution Tikhonov}
+
+\begin{verbatim}
+    function estimate = cgconvtik(H, D1, D2, Y, x_0, lambda, n_iter)
+    size_Y = size(Y);
+    Y = Y(:);
+    Ax_0 = forward_A(H,lambda,D1,D2,x_0);
+    x_0 = x_0(:);
+    r = Y - Ax_0;
+    p = r;
+    for k = 1:n_iter
+        Ap = forward_A(H,lambda,D1,D2,reshape(p,size_Y));
+        alpha = (r'*r)/(p'*Ap);
+        x_0 = x_0 + alpha*p;
+        r_new = r - alpha*Ap;
+        beta = (r_new'*r_new)/(r'*r);
+        p = r_new + beta*p;
+        r = r_new;
+    end
+    estimate = x_0;
+    end
+\end{verbatim}
+
+\subsection*{CG Radon Tikhonov}
+
+\begin{verbatim}
+    function estimate = cgradontik(D1, D2, Y, x_0, lambda, n_iter)
+    size_Y = size(Y);
+    Y = Y(:);
+    Ax_0 = forward_radon(lambda,D1,D2,x_0);
+    x_0 = x_0(:);
+    r = Y - Ax_0;
+    p = r;
+    for k = 1:n_iter
+        Ap = forward_radon(lambda,D1,D2,reshape(p,size_Y));
+        alpha = (r'*r)/(p'*Ap);
+        x_0 = x_0 + alpha*p;
+        r_new = r - alpha*Ap;
+        beta = (r_new'*r_new)/(r'*r);
+        p = r_new + beta*p;
+        r = r_new;
+    end
+    estimate = x_0;
+    end
+    \end{verbatim}
+
+    \section*{Q4 d}
+
+    \begin{verbatim}
+    close all; clc; clear;
+    X = mat2gray(double(imread('cameraman.tif')));
+    H = gauss2d(15,15,0,0,2,2);
+    D1 = [-1 0 1];
+    D2 = D1';
+    H_flipped = flip(flip(H,1),2);
+    Y = conv2(X,H,'same');
+    sigma_s = var(Y(:));
+    sigma_n = sigma_s * 1e-3;
+    noise = sigma_n * randn(size(Y));
+    Y = Y + noise;
+    b = conv2(Y,H_flipped,'same');
+    n_iter = 250;
+    x_0 = randn(size(X));
+    i = 1;
+    f1 = figure('units','normalized','outerposition',[0.0823 0.1111 0.7063 0.7963]);
+    exponents = linspace(-5,-1,25);
+    for lambda = power(10,exponents)
+        estimate = cgconvtik(H, D1, D2, b, x_0, lambda, n_iter);
+        X_back = reshape(estimate,size(X));
+        subplot(5,5,i)
+        imagesc(X_back), colormap gray
+        title({['\lambda = ',num2str(lambda)],['Exponent of 10: ',num2str(exponents(i))]})
+        i = i+1;
+    end
+    sgtitle(['CG Reconstructions for N_{iter} = ',num2str(n_iter)])
+    \end{verbatim}
+    
+    \begin{verbatim}
+    X = phantom('Modified Shepp-Logan',256);
+    D1 = [-1 0 1];
+    D2 = D1';
+    
+    theta_step = 180/(size(X,1));
+    thetas = 0:179;
+    Y = radon(X);
+    sigma_s = var(Y(:));
+    sigma_n = sigma_s * 1e-3;
+    noise = sigma_n * randn(size(Y));
+    Y = Y + noise;
+    b = iradon(Y,thetas);
+    b = b(2:end-1,2:end-1);
+    
+    n_iter = 250;
+    x_0 = randn(size(X));
+    i = 1;
+    f2 = figure('units','normalized','outerposition',[0.1964 0.2250 0.4896 0.6019]);
+    exponents = linspace(-1,2,20);
+    for lambda = power(10,exponents)
+        tic
+        estimate = cgradontik(D1, D2, b, x_0, lambda, n_iter);
+        X_back = reshape(estimate,size(X));
+        subplot(4,5,i)
+        imagesc(X_back), colormap gray
+        title({['\lambda = ',num2str(lambda)],['Exponent of 10: ',num2str(exponents(i))]})
+        i = i+1;
+        toc
+    end
+    sgtitle(['CG Reconstructions for N_{iter} = ',num2str(n_iter)])
+    \end{verbatim}
+    
+\pagebreak
+\subsubsection*{Comments}
+\begin{equation}
+    ||y-Cx||^2_2 + \lambda ||Dx||^2_2 \label{eqn:TikCost}
+\end{equation}
+
+The Tikhonov Regularization uses the cost function given in Eqn. \ref{eqn:TikCost}. The regularization parameter $\lambda$ serves as a weighting parameter between prior and data-model-mismatch (effect of noise) that penalizes the quantity expressed by $Dx$. In our scenarios, this regularization enforces the reconstruction to be smooth. In figures \Cref{fig:cameraman,fig:radon}, the trade-off effect is observable when $\lambda$ is swept through the given intervals. We see the effect of noise for small $\lambda$ values where noise is amplified and a smoothness (low-pass effect) introduced by highly weighted prior in the larger $\lambda$ cases.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics [height=5in,width=5in]{Q4_01.eps}
+    \caption{Cameraman Reconstructions}\label{fig:cameraman}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics [height=5in,width=5in]{Q4_02.eps}
+    \caption{Shepp-Logan Reconstructions}\label{fig:radon}
+\end{figure}
+
 \end{document}
 
